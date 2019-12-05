@@ -100,7 +100,7 @@ export default function Home(props) {
 
   return (
     <div>
-      {MainHeaders("transparent")}
+      {MainHeader("transparent")}
 
       {/* Background Section */}
       <div>
