@@ -5,8 +5,7 @@ import { Router, Route, Switch } from "react-router-dom";
 
 import "assets/scss/material-kit-react.scss?v=1.8.0";
 
-import Home from 'views/Home';
-import AllProducts from 'views/AllProducts';
+import Home from 'views/Home/Home';
 import Product from 'views/Product';
 
 var hist = createBrowserHistory();
@@ -15,7 +14,6 @@ ReactDOM.render(
   <Router history={hist}>
     <Switch>
       <Route path="/product" component={Product} />
-      <Route path="/allproducts" component={AllProducts} />
       <Route path="/" component={Home} />
     </Switch>
   </Router>,

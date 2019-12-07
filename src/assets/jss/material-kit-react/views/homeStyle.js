@@ -12,11 +12,14 @@ const homeStyle = {
   },
   title: {
     ...defaultFont,
-    fontSize : "40px"
+    fontSize : "40px", 
   },
   subtitle: {
     ...defaultFont,
-    fontSize : "20px"
+    fontSize : "20px",
+  },
+  button:{
+    ...defaultFont,
   },
   subtitle2: {
     ...defaultFont,
