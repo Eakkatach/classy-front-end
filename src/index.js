@@ -6,7 +6,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import "assets/scss/material-kit-react.scss?v=1.8.0";
 
 import Home from 'views/Home/Home';
-import Product from 'views/Product';
+import Product from 'views/Product/Product';
 
 var hist = createBrowserHistory();
 

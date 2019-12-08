@@ -23,16 +23,18 @@ export default function ProductCard(props) {
           sm={12} 
           md={12} 
           className={classes.itemGrid}
-        >
-          <img
-            src={coat1}
-            alt={props.alt}
-            className={
-              classNames(
-                classes.imgRounded, 
-                classes.imgGallery)
-            }
-          />
+        > 
+          <a href="/product">
+            <img
+              src={coat1}
+              alt={props.alt}
+              className={
+                classNames(
+                  classes.imgRounded, 
+                  classes.imgGallery)
+              }
+            />
+          </a>
         </GridItem>
         <h4 className={classes.cardTitle}>
           {props.name}
