@@ -24,9 +24,10 @@ export default function AllProductsSection(props) {
           productList.map(product => (
             <ProductCard 
               key={product.id}
+              id={product.id}
               alt="..." 
               name={product.name}
-              startPrice={product.startPrice}
+              startPrice={product.priceList[0]}
             />
 
           ))

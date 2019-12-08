@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'; 
 // core components
+import Slide from "@material-ui/core/Slide";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Grid from "@material-ui/core/Grid";
@@ -10,10 +11,22 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import IconButton from "@material-ui/core/IconButton";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+// @material-ui/icons
+import Close from "@material-ui/icons/Close";
+// image
+import qrcode from 'assets/img/qrcode.png';
 // style
 import styles from "assets/jss/views/product/detailSectionStyle";
 
 const useStyles = makeStyles(styles);
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 
 const rentRate = (classes, leftText, rightText) => {
   return (
@@ -29,7 +42,9 @@ const rentRate = (classes, leftText, rightText) => {
 };
 
 export default function DetailSection(props) {
+  const { product } = props;
   const classes = useStyles();
+  const [classicModal, setClassicModal] = React.useState(false);
 
   return(
     <GridItem xs={12} sm={12} md={6}>
@@ -39,7 +54,7 @@ export default function DetailSection(props) {
         >
           {/******* Product Name *******/}
           <h4 className={classes.title}>
-            Black Cool Jacket Zara
+            {product.name}
           </h4>
 
           {/* ******Rental Rate ****** */}
@@ -59,14 +74,14 @@ export default function DetailSection(props) {
                   <GridItem xs={12} sm={6} md={6}
                     className={classes.itemGrid}
                   >
-                    {rentRate(classes, "เช่า 1-5 วัน", "฿900")}
-                    {rentRate(classes, "เช่า 6-10 วัน", "฿1,800")}
-                    {rentRate(classes, "เช่า 11-15 วัน", "฿2,700")}
+                    {rentRate(classes, "เช่า 1-5 วัน", "฿" + product.priceList[0])}
+                    {rentRate(classes, "เช่า 6-10 วัน", "฿" + product.priceList[1])}
+                    {rentRate(classes, "เช่า 11-15 วัน", "฿" + product.priceList[2])}
                   </GridItem>
                   <GridItem xs={12} sm={6} md={6}
                     className={classes.itemGrid}
                   >
-                    {rentRate(classes, "ค่าประกันชุด", "฿900")}
+                    {rentRate(classes, "ค่าประกันชุด", "฿" + product.deposit)}
                   </GridItem>
                 </GridContainer>
               </GridItem>
@@ -85,25 +100,25 @@ export default function DetailSection(props) {
           <ExpansionPanelDetails>
             <Grid container>
               <GridItem xs={6} sm={6} md={6}>
-                <p className={classes.text}>ไซส์: M</p>
+                <p className={classes.text}>ไซส์: {product.size}</p>
               </GridItem>
               <GridItem xs={6} sm={6} md={6}>
-                <p className={classes.text}>วงแขน: 20"</p>
+                <p className={classes.text}>วงแขน: {product.arm}</p>
               </GridItem>
               <GridItem xs={6} sm={6} md={6}>
-                <p className={classes.text}>อก: 60"</p>
+                <p className={classes.text}>อก: {product.breast}</p>
               </GridItem>
               <GridItem xs={6} sm={6} md={6}>
-                <p className={classes.text}>เอว: 20"</p>
+                <p className={classes.text}>เอว: {product.weist}</p>
               </GridItem>
               <GridItem xs={6} sm={6} md={6}>
-                <p className={classes.text}>สะโพก: 60"</p>
+                <p className={classes.text}>สะโพก: {product.hip}</p>
               </GridItem>
               <GridItem xs={6} sm={6} md={6}>
-                <p className={classes.text}>ไหล่กว้าง: 20"</p>
+                <p className={classes.text}>ไหล่กว้าง: {product.shoulder}</p>
               </GridItem>
               <GridItem xs={6} sm={6} md={6}>
-                <p className={classes.text}>ยาว: 60"</p>
+                <p className={classes.text}>ยาว: {product.length}</p>
               </GridItem>
             </Grid>
           </ExpansionPanelDetails>
@@ -120,8 +135,7 @@ export default function DetailSection(props) {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <p className={classes.text}>
-              {" "}
-              ชุดนี้อุณหภูมิประมาณ 20 องศา{" "}
+              {product.suggest}
             </p>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -146,9 +160,53 @@ export default function DetailSection(props) {
       <Button 
         className={classes.buttonFont} 
         color="darkWinter"
+        onClick={() => setClassicModal(true)}
       >
         เช่าชุดนี้
       </Button>
+      <Dialog
+        classes={{
+          root: classes.center,
+          paper: classes.modal
+        }}
+        open={classicModal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setClassicModal(false)}
+        aria-labelledby="classic-modal-slide-title"
+        aria-describedby="classic-modal-slide-description"
+      >
+        <DialogTitle
+          id="classic-modal-slide-title"
+          disableTypography
+          className={classes.modalHeader}
+        >
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setClassicModal(false)}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h4 className={classes.modalTitle}>ติดต่อเช่า/สอบถาม</h4>
+        </DialogTitle>
+        <DialogContent
+          id="classic-modal-slide-description"
+          className={classes.modalBody}
+        >
+          <p> สามารถทักไลน์แชทเพื่อทำการติดต่อเช่าได้เลยค่ะ </p>
+          <p>1. LINE ID: @classywintercoat </p>
+          <p>2. Add Line Friends via QR Code</p>
+          <img 
+            src={qrcode}
+            alt="..."
+            width="250px"
+          />
+          
+        </DialogContent>
+      </Dialog>
       </Card>
     </GridItem>
   )

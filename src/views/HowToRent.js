@@ -7,14 +7,10 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Footer from "components/Footer/Footer.js";
 // views
-import MainHeader from "../MainHeader";
-import ImageSection from './ImageSection';
-import DetailSection from './DetailSection';
-import HowToRentSection from '../HowToRentSection';
+import MainHeader from "./MainHeader";
+import HowToRentSection from './HowToRentSection';
 // styles
 import styles from "assets/jss/views/productStyle";
-// model (database)
-import productList from 'models/products';
 
 // demo pictures
 import iceland1 from "assets/img/iceland1.jpg";
@@ -23,7 +19,7 @@ const useStyles = makeStyles(styles);
 
 export default function Product(props) {
   const classes = useStyles();
-  const product = productList.find(prod => prod.id === props.id);
+
   return(
     <div>
       <MainHeader color="white" />
@@ -33,10 +29,6 @@ export default function Product(props) {
           <div className={classNames(classes.main, classes.mainRaised)}>
             <div className={classes.container}>
               <div className={classes.section}>
-                <GridContainer justify="center">
-                  <ImageSection product={product} />
-                  <DetailSection product={product} />
-                </GridContainer>
                 <HowToRentSection />
               </div>
             </div>

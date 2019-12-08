@@ -15,8 +15,10 @@ const useStyles = makeStyles(styles);
 
 export default function ProductCard(props) {
   const classes = useStyles();
+  const link = `/product/${props.id}`
   return(
     <GridItem xs={6} sm={6} md={4}>
+      <a href={link}>
       <Card plain>
         <GridItem 
           xd={12} 
@@ -24,7 +26,7 @@ export default function ProductCard(props) {
           md={12} 
           className={classes.itemGrid}
         > 
-          <a href="/product">
+          
             <img
               src={coat1}
               alt={props.alt}
@@ -34,7 +36,6 @@ export default function ProductCard(props) {
                   classes.imgGallery)
               }
             />
-          </a>
         </GridItem>
         <h4 className={classes.cardTitle}>
           {props.name}
@@ -47,6 +48,7 @@ export default function ProductCard(props) {
           </small>
         </h4>
       </Card>
+      </a>
     </GridItem>
   )
   
